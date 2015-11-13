@@ -1,0 +1,42 @@
+# depslib dependency file v1.0
+1447429234 source:d:\workspace_c++\sprompt\main.cpp
+	<iostream>
+	"shell.h"
+
+1447425818 d:\workspace_c++\sprompt\colors.h
+	<windows.h>
+	<iostream>
+	"globals.h"
+
+1447430856 d:\workspace_c++\sprompt\shell.h
+	<vector>
+	<string>
+	<map>
+	"globals.h"
+
+1447432343 source:d:\workspace_c++\sprompt\shell.cpp
+	<unistd.h>
+	<cstdio>
+	<memory>
+	<sstream>
+	<fstream>
+	<vector>
+	<string>
+	<conio.h>
+	<dirent.h>
+	<windows.h>
+	<iostream>
+	"globals.h"
+	"colors.h"
+	"shell.h"
+
+1447425731 source:d:\workspace_c++\sprompt\colors.cpp
+	<iostream>
+	"colors.h"
+
+1447425731 d:\workspace_c++\sprompt\colors.cpp
+	<iostream>
+	"colors.h"
+
+1447425905 d:\workspace_c++\sprompt\globals.h
+
