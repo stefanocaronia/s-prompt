@@ -2,6 +2,14 @@
 
 #include "shell.h"
 
+/*
+	TODO
+
+	- copia incolla
+	- movimenti con frecce
+	- shortcuts
+*/
+
 using namespace std;
 
 int main(int argc, char* argv[]) {

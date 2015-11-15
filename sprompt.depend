@@ -40,3 +40,36 @@
 
 1447425905 d:\workspace_c++\sprompt\globals.h
 
+1447442366 source:d:\sviluppo\projects-cpp\sprompt\colors.cpp
+	<iostream>
+	"colors.h"
+
+1447442366 d:\sviluppo\projects-cpp\sprompt\colors.h
+	<windows.h>
+	<iostream>
+	"globals.h"
+
+1447442366 d:\sviluppo\projects-cpp\sprompt\globals.h
+
+1447442366 source:d:\sviluppo\projects-cpp\sprompt\shell.cpp
+	<unistd.h>
+	<cstdio>
+	<memory>
+	<sstream>
+	<fstream>
+	<vector>
+	<string>
+	<conio.h>
+	<dirent.h>
+	<windows.h>
+	<iostream>
+	"globals.h"
+	"colors.h"
+	"shell.h"
+
+1447442366 d:\sviluppo\projects-cpp\sprompt\shell.h
+	<vector>
+	<string>
+	<map>
+	"globals.h"
+

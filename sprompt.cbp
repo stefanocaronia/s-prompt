@@ -17,7 +17,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<ExtraCommands>
-					<Add before="cmd /c rescopy" />
+					<Add before="cmd /c rescopy Debug" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
@@ -35,7 +35,7 @@
 					<Add option="-s" />
 				</Linker>
 				<ExtraCommands>
-					<Add before="cmd /c rescopy" />
+					<Add before="cmd /c rescopy Release" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>

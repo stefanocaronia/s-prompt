@@ -1,6 +1,6 @@
 @REM Inserti in Code-blocks Project root
 @REM Pre-Build Steps: cmd /c rescopy
-@%WINDIR%\system32\robocopy res\ bin\Debug\ /MIR /XF *.exe /NFL /NDL /NJH /NJS /nc /ns /np
+@%WINDIR%\system32\robocopy res\ bin\%1\ /MIR /XF *.exe /NFL /NDL /NJH /NJS /nc /ns /np
 @SET ERRNO = %ERRORLEVEL%
 @if %ERRORLEVEL% EQU 16 echo RES COPY RESULT: ***FATAL ERROR*** & goto error
 @if %ERRORLEVEL% EQU 15 echo RES COPY RESULT: OKCOPY + FAIL + MISMATCHES + XTRA & goto error
