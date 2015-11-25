@@ -20,6 +20,7 @@ Shell::Shell() {
 	USERNAME = ENV("USERNAME");
 	COMPUTERNAME = ENV("COMPUTERNAME");
 	SetConsoleTitle("$ Prompt");
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
 Shell::Shell(string pa) {
@@ -64,30 +65,47 @@ void Shell::run() {
 }
 
 string Shell::input() {
-	string commandLine = "";
+	commandLine = "";
 	string currentWord = "";
+	cursorPosInCommandLine = 0;
 	string currentWordCompl = "";
 	char ch;
 
 	while ( ((ch=_getch())!='\r') ) {
+
+		refreshCSBI();
+
 		switch (ch) {
 			case KEY_UP:
 				for (unsigned int c = 0; c < commandLine.length(); c++) cout << char(KEY_BACKSPACE) << " " << char(KEY_BACKSPACE);
 				commandLine = history[history_pos];
 				cout << commandLine;
 				if (history_pos>0) history_pos--;
+				cursorPosInCommandLine = commandLine.length();
 				break;
 			case KEY_DOWN:
 				for (unsigned int c = 0; c < commandLine.length(); c++) cout << char(KEY_BACKSPACE) << " " << char(KEY_BACKSPACE);
 				commandLine = history[history_pos];
 				cout << commandLine;
 				if (history_pos<history.size()-1) history_pos++;
+				cursorPosInCommandLine = commandLine.length();
+				break;
+			/*case KEY_LEFT:
+				cursorLeft();
+				break;*/
+			case -32:
+				if (_getch()==KEY_LEFT) cursorLeft();
+				if (_getch()==KEY_RIGHT) cursorRight();
+				break;
+			case KEY_RIGHT:
+				cursorRight();
 				break;
 			case KEY_BACKSPACE:
 				if (commandLine.size()>0) {
 					cout << ch << " " << ch;
 					commandLine.erase(commandLine.size() - 1);
 				}
+				cursorPosInCommandLine = commandLine.length();
 				break;
 			case KEY_TAB:
 				currentWord = getCurrentWord(commandLine);
@@ -99,10 +117,14 @@ string Shell::input() {
 						break;
 					}
 				}
+				cursorPosInCommandLine = commandLine.length();
 				break;
 			default:
-				commandLine+=ch;
-				cout << ch;
+				if (cursorPosInCommandLine == commandLine.length()) {
+					commandLine+=ch;
+					cout << ch;
+				}
+				cursorPosInCommandLine = commandLine.length();
 		}
 	}
 
@@ -234,6 +256,31 @@ bool Shell::loadConfig() {
 	}
 
 	return true;
+}
+
+void Shell::refreshCSBI() {
+	GetConsoleScreenBufferInfo(hConsole, &csbi);
+	cursorPosition = csbi.dwCursorPosition;
+}
+
+void Shell::cursorLeft() {
+	if (cursorPosInCommandLine==0) return;
+	COORD newCoord;
+	newCoord.Y=csbi.dwCursorPosition.Y;
+	newCoord.X=csbi.dwCursorPosition.X-1;
+	if ((cursorPosInCommandLine+PROMPT.length())%csbi.dwMaximumWindowSize.X==1) newCoord.Y--;
+	cursorPosInCommandLine--;
+	SetConsoleCursorPosition(hConsole,newCoord);
+
+}
+
+void Shell::cursorRight() {
+	if (cursorPosInCommandLine==commandLine.length()) return;
+	COORD newCoord;
+	newCoord.Y=csbi.dwCursorPosition.Y;
+	newCoord.X=csbi.dwCursorPosition.X+1;
+	SetConsoleCursorPosition(hConsole,newCoord);
+	cursorPosInCommandLine++;
 }
 
 /* UTILITY FUNCTIONS */

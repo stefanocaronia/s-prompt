@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <windows.h>
 #include "globals.h"
 
 using namespace std;
@@ -64,12 +65,21 @@ class Shell {
 		void printHeader(bool);
 		string getCurrentWord(string &);
 		void setCurrentPathFromCommand(string);
-
+		void refreshCSBI();
+		void cursorLeft();
+		void cursorRight();
 
 
 		vector<string> files;
 		vector<string> history;
 		unsigned int history_pos = 0;
+
+		HANDLE hConsole;
+		COORD cursorPosition;
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		unsigned int cursorPosInCommandLine;
+		string commandLine;
+
 
 		string currentPath;
 		vector<string> currentPathFiles;
